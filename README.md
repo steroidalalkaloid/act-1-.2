@@ -1,33 +1,13 @@
 # Task Manager API
 
-A REST API built with Symfony and API Platform to manage tasks with full CRUD operations.
 
-## Features
-- ✅ Create, read, update, and delete tasks
-- ✅ Mark tasks as completed
-- ✅ Auto-generated API documentation (Swagger/OpenAPI)
-- ✅ MySQL database integration
-- ✅ Docker containerization
-- ✅ CORS support
 
-## Requirements
-- Docker & Docker Compose
-- PHP 8.4+ (for local development)
-
-## Detailed Setup Instructions
-
-### Step 1: Prerequisites Check
-Before starting, ensure you have:
-- Docker Desktop installed and running
-- At least 4GB of free disk space
-- Port 8080, 3306, and 8081 available (not in use)
-
-### Step 2: Navigate to Project Directory
+### Step 1: Navigate to Project Directory
 ```bash
 cd task-manager-api
 ```
 
-### Step 3: Build and Start Docker Containers
+### Step 2: Build and Start Docker Containers
 ```bash
 docker-compose up -d --build
 ```
@@ -42,14 +22,14 @@ docker-compose up -d --build
 
 **Verification:** Run `docker-compose ps` to see all containers running.
 
-### Step 4: Wait for MySQL to Initialize
+### Step 3: Wait for MySQL to Initialize
 Wait **15-20 seconds** for the database container to fully start. You can check logs:
 ```bash
 docker-compose logs db
 ```
 Look for: `ready for connections`
 
-### Step 5: Install PHP Dependencies
+### Step 6: Install PHP Dependencies
 ```bash
 docker-compose exec app composer install
 ```
@@ -58,7 +38,7 @@ docker-compose exec app composer install
 - Installs all PHP packages listed in `composer.json` (Symfony, API Platform, Doctrine ORM, etc.)
 - Creates the `vendor/` directory with all dependencies
 
-### Step 6: Create Database Tables (Migrations)
+### Step 7: Create Database Tables (Migrations)
 First, generate a migration file from the Task entity:
 ```bash
 docker-compose exec app php bin/console doctrine:migrations:diff
@@ -79,7 +59,7 @@ docker-compose exec app php bin/console doctrine:migrations:migrate --no-interac
 - Executes the generated SQL
 - Database is now ready for API requests
 
-### Step 7: Verify Everything Works
+### Step 8: Verify Everything Works
 Open your browser:
 - **API Documentation:** http://localhost:8080/api
 - **Database Manager:** http://localhost:8081 (User: symfony, Pass: secret)
@@ -202,13 +182,13 @@ task-manager-api/
 
 When you `POST /api/tasks` with `{"title":"Buy milk","description":"2L"}`:
 
-1. **API Platform** recognizes the POST operation on the Task resource
-2. **Doctrine** creates a new Task object from JSON data
-3. **Entity Validator** checks required fields (title is required)
-4. **Database Layer** executes `INSERT INTO task ...`
-5. **Entity Constructor** sets `createdAt = now()` and `isCompleted = false`
-6. **JSON Serializer** converts Task object to `{"id":1,"title":"Buy milk",...}`
-7. **HTTP Response** returns 201 (Created) with the new task
+1.  API Platform  recognizes the POST operation on the Task resource
+2.  Doctrine  creates a new Task object from JSON data
+3.   Entity Validator checks required fields (title is required)
+4. Database Layer  executes `INSERT INTO task ...`
+5.  Entity Constructor sets `createdAt = now()` and `isCompleted = false`
+6.  JSON Serializer  converts Task object to `{"id":1,"title":"Buy milk",...}`
+7.  HTTP Response  returns 201 (Created) with the new task
 
 ---
 
